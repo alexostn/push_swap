@@ -47,7 +47,7 @@ int	is_numeric_argument(char *arg)
 
 	if (arg == NULL || arg[0] == '\0') // Ensure the string is not empty
 	{
-		ft_putstr_fd("Error", 2);
+		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}
 
@@ -58,7 +58,7 @@ int	is_numeric_argument(char *arg)
 	{
 		if (arg[j + 1] == '\0' || arg[j + 1] == ' ' || (arg[j + 1] >= 9 && arg[j + 1] <= 13)) // Ensure sign is not alone
 		{
-			ft_putstr_fd("Error", 2);
+			ft_putstr_fd("Error\n", 2);
 			exit(1);
 		}
 		j++;
@@ -66,7 +66,7 @@ int	is_numeric_argument(char *arg)
 
 	if (arg[j] == '\0' || !ft_isdigit(arg[j])) // Ensure that there are digits after the sign
 	{
-		ft_putstr_fd("Error", 2);
+		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}
 
@@ -79,7 +79,7 @@ int	is_numeric_argument(char *arg)
 		}
 		if (!ft_isdigit(arg[j])) // Check for non-digit characters
 		{
-			ft_putstr_fd("Error", 2);
+			ft_putstr_fd("Error\n", 2);
 			exit(1);
 		}
 		j++;
@@ -87,7 +87,7 @@ int	is_numeric_argument(char *arg)
 	// Range check
 	if (!is_within_int_range(arg))
 	{
-		ft_putstr_fd("Error", 2);
+		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}
 	return (1);
@@ -166,36 +166,40 @@ void add_value_to_list(t_node **head, t_node **tail, int value)
 
 void ft_split_and_convert(char *str, t_node **head, t_node **tail)
 {
-    int i = 0;
-    int w_begin = 0;
+	int i = 0;
+	int w_begin = 0;
 
-    while (str[i])
-    {
-        // Пропускаем пробелы
-        while (str[i] <= 32) 
-            i++;
+	while (str[i])
+	{
+		// Пропускаем пробелы
+		while (str[i] <= 32 && str[i] != '\0') 
+			i++;
 
-        w_begin = i; // Начало слова
-        while (str[i] > 32) // Находим конец слова
-            i++;
+		if (str[i] == '\0') // Если достигли конца строки после пробелов, выходим
+			break;
 
-        if (i > w_begin) // Если нашли слово
-        {
-            int len = i - w_begin;
-            char *word = (char *)malloc(sizeof(char) * (len + 1));
-            if (word)
-            {
-                ft_strcpy(word, &str[w_begin], len);
-                if (is_numeric_argument(word))
-                {
-                    int value = ft_atoi(word); // Изменено: конвертируем строку в целое число
-                    add_value_to_list(head, tail, value); // Изменено: добавляем целое число в список
-                }
-                free(word); // Исправлено: освобождаем память, выделенную для word
-            }
-        }
-    }
+		w_begin = i; // Начало слова
+		while (str[i] > 32 && str[i] != '\0') // Находим конец слова
+			i++;
+
+		if (i > w_begin) // Если нашли слово
+		{
+			int len = i - w_begin;
+			char *word = (char *)malloc(sizeof(char) * (len + 1));
+			if (word)
+			{
+				ft_strcpy(word, &str[w_begin], len);
+				if (is_numeric_argument(word)) // Проверяем, является ли аргумент числом
+				{
+					int value = ft_atoi(word); // Конвертируем строку в целое число
+					add_value_to_list(head, tail, value); // Добавляем целое число в список
+				}
+				free(word); // Освобождаем память, выделенную для word
+			}
+		}
+	}
 }
+
 
 void free_list(t_node *head)
 {
@@ -221,10 +225,10 @@ int main(int ac, char **av)
 
         // Итерация по объединенному списку и печать каждого значения
         t_node *current = head;
-        int index = 0;
+        int index = 1;
         while (current)
         {
-            printf("Word %d: %d\n", index++, current->value); // Изменено: печатаем целое число
+            printf("Node %d: %d\n", index++, current->value); // Изменено: печатаем целое число
             current = current->next;
         }
 
