@@ -156,11 +156,11 @@ void add_reversed_value_to_list(t_node **head_a, t_node **tail_a, int value)
 	t_node *new_node = create_node(value);
 	if (!new_node)
 	{
-		// Обработка ошибки выделения памяти
+		// Memory allocation error handling
 		return;
 	}
 
-	// Вставка в голову списка
+	// Insert at the head of the list
 	if (*head_a == NULL)
 	{
 		*head_a = new_node;
@@ -168,9 +168,9 @@ void add_reversed_value_to_list(t_node **head_a, t_node **tail_a, int value)
 	}
 	else
 	{
-		new_node->next = *head_a; // Указываем новый узел на текущую голову
-		(*head_a)->prev = new_node; // Устанавливаем указатель на предыдущий узел для старой головы
-		*head_a = new_node; // Обновляем голову на новый узел
+		new_node->next = *head_a; // Point the new node to the current head
+		(*head_a)->prev = new_node; // Set the pointer to the previous node for the old head
+		*head_a = new_node; // Update the head to the new node
 	}
 }
 
@@ -228,9 +228,6 @@ int main(int ac, char **av)
 	{
 		t_node *head_a = NULL;
 		t_node *tail_a = NULL;
-		// t_node *head_b = NULL; // New list b
-		// t_node *tail_b = NULL; // New tail for list b
-
 
 		for (int i = 1; i < ac; i++) // Iterate over arguments
 		{
