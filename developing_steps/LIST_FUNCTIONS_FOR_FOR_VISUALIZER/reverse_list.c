@@ -25,8 +25,8 @@ void reverse_list(t_node **head_a)
 
     while (current != NULL)
     {
-        temp = current->prev; // Save the previous node
-        current->prev = current->next; // Reverse the next pointer
+        temp = current->prev; // Save the previous node                EVERYTHING HAPPENS HERE
+        current->prev = current->next; // Reverse the next pointer     EVERYTHING HAPPENS HERE
         current->next = temp; // Reverse the prev pointer
         current = current->prev; // Move to the next node (which was previous in the original list)
     }
