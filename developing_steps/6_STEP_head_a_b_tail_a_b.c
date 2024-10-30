@@ -238,12 +238,12 @@ int main(int ac, char **av)
 		}
 
 		// Iterate over the combined head_a and print each value
-		t_node *current = head_a;
+		t_node *current_a = head_a;
 		int index = 1;
-		while (current)
+		while (current_a)
 		{
-			printf("Node %d: %d\n", index++, current->value); // Print the integer value
-			current = current->next;
+			printf("Node A %d: %d\n", index++, current_a->value); // Print the integer value
+			current_a = current_a->next;
 		}
 
 		// Free memory allocated for the combined head_a
