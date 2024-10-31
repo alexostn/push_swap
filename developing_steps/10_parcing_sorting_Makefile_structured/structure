@@ -1,0 +1,8 @@
+/push_swap
+├── Makefile
+├── include
+│   └── push_swap.h
+└── src
+    ├── parsing.c
+    ├── sorting.c
+    └── main.c
