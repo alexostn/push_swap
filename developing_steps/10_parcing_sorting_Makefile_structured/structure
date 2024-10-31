@@ -6,3 +6,4 @@
     ├── parsing.c
     ├── sorting.c
     └── main.c
+//being in root directory write "make" or "re"
